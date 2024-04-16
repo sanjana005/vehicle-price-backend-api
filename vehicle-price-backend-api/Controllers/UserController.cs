@@ -22,33 +22,47 @@ namespace vehicle_price_backend_api.Controllers
         [HttpPost("UserRegistartion")]
         public async Task<IActionResult> UserRegistration(UserRegistrationDTO userRegistrationDTO)
         {
-            var user = new User()
+            try
             {
-                Email = userRegistrationDTO.Email,
-                Name = userRegistrationDTO.Name,
-                Password = ConvertToEncrypt(userRegistrationDTO.Password),
-                PhoneNo = userRegistrationDTO.PhoneNo,
-                UserType = userRegistrationDTO.UserType
-            };
+                var user = new User()
+                {
+                    Email = userRegistrationDTO.Email,
+                    Name = userRegistrationDTO.Name,
+                    Password = ConvertToEncrypt(userRegistrationDTO.Password),
+                    PhoneNo = userRegistrationDTO.PhoneNo,
+                    UserType = userRegistrationDTO.UserType
+                };
 
-            await dbContext.Users.AddAsync(user);
-            await dbContext.SaveChangesAsync();
+                await dbContext.Users.AddAsync(user);
+                await dbContext.SaveChangesAsync();
 
-            return Ok(user);
+                return Ok("User registered successfully.");
+            }
+            catch(Exception ex) 
+            {
+                throw ex;
+            }
         }
 
         [HttpPost("UserLogin")]
         public async Task<IActionResult> UserLogin(UserLoginDTO userLoginDTO)
         {
-            var user = await dbContext.Users
+            try
+            {
+                var user = await dbContext.Users
                 .FirstOrDefaultAsync(u => u.Email == userLoginDTO.Email && u.Password == ConvertToEncrypt(userLoginDTO.Password));
 
-            if (user == null)
-            {
-                return NotFound();
-            }
+                if (user == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(user);
+                return Ok("Login successful.");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
 
         }
 
