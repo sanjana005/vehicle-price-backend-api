@@ -5,7 +5,7 @@ namespace vehicle_price_backend_api.Data
 {
     public class VehicleAPIDbCon : DbContext
     {
-        public VehicleAPIDbCon(DbContextOptions options) : base(options)
+        public VehicleAPIDbCon(DbContextOptions<VehicleAPIDbCon> options) : base(options)
         {
         }
 
