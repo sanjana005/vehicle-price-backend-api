@@ -13,7 +13,10 @@ builder.Services.AddSwaggerGen();
 
 //builder.Services.AddDbContext<VehicleAPIDbCon>(options => options.UseInMemoryDatabase("VehicleDB"));
 builder.Services.AddDbContext<VehicleAPIDbCon>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("VehicleAPIConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
+
+builder.Services.AddDbContext<UserAPIDbCon>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 var app = builder.Build();
 
