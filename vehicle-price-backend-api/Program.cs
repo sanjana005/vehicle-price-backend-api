@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using vehicle_price_backend_api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<UserAPIDbCon>(options => options.UseInMemoryDatabase("VehicleDB"));
+//builder.Services.AddDbContext<VehicleAPIDbCon>(options => options.UseInMemoryDatabase("VehicleDB"));
+builder.Services.AddDbContext<VehicleAPIDbCon>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("VehicleAPIConnectionString")));
 
 var app = builder.Build();
 
