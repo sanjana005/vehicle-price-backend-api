@@ -2,6 +2,7 @@
 {
     public class VehicleDTO
     {
+        public int Id { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Location { get; set; }
@@ -13,6 +14,7 @@
         public string FuelType { get; set; }
         public string Transmission { get; set; }
         public double Price { get; set; }
-        public byte[] ImageData { get; set; }
+      
     }
+
 }

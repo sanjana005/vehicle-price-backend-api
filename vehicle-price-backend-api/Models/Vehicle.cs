@@ -14,6 +14,6 @@
         public string FuelType { get; set; }
         public string Transmission {  get; set; }
         public double Price { get; set; }
-        public byte[] ImageData { get; set; }
+        
     }
 }

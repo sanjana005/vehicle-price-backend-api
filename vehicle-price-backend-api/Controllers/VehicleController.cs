@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using vehicle_price_backend_api.Data;
 using vehicle_price_backend_api.Models;
-using static System.Net.Mime.MediaTypeNames;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace vehicle_price_backend_api.Controllers
 {
@@ -18,14 +18,10 @@ namespace vehicle_price_backend_api.Controllers
         }
 
         [HttpPost("AddNewVehicle")]
-        public async Task<IActionResult> AddNewVehicle(List<IFormFile> images, VehicleDTO vehicleDTO)
+        public async Task<IActionResult> AddNewVehicle(VehicleDTO vehicleDTO)
         {
             try
             {
-                if (images.Count > 4)
-                {
-                    return BadRequest("You can upload a maximum of 4 images.");
-                }
 
                 var vehicle = new Vehicle()
                 {
@@ -45,17 +41,6 @@ namespace vehicle_price_backend_api.Controllers
                 await dbContext.Vehicles.AddAsync(vehicle);
                 await dbContext.SaveChangesAsync();
 
-                foreach (var image in images)
-                {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        await image.CopyToAsync(memoryStream);
-                        vehicle.ImageData = memoryStream.ToArray();
-                    }
-
-                    await dbContext.SaveChangesAsync();
-                }
-
                 return Ok("Vehicle added successfully.");
             }
             catch (Exception ex)
@@ -63,6 +48,8 @@ namespace vehicle_price_backend_api.Controllers
                 throw ex;
             }
         }
+
+
 
         [HttpGet("GetVehicles")]
         public async Task<IActionResult> GetVehicles()
@@ -73,6 +60,7 @@ namespace vehicle_price_backend_api.Controllers
 
                 var vehicleDTOs = vehicles.Select(vehicle => new VehicleDTO
                 {
+                    Id = vehicle.Id,
                     Brand = vehicle.Brand,
                     Model = vehicle.Model,
                     VehicleType = vehicle.VehicleType,
@@ -84,7 +72,6 @@ namespace vehicle_price_backend_api.Controllers
                     FuelType = vehicle.FuelType,
                     Transmission = vehicle.Transmission,
                     Price = vehicle.Price,
-                    ImageData = vehicle.ImageData
                 }).ToList();
 
                 return Ok(vehicleDTOs);
@@ -96,7 +83,7 @@ namespace vehicle_price_backend_api.Controllers
         }
 
         [HttpPut("UpdateVehicle/{id}")]
-        public async Task<IActionResult> UpdateVehicle(int id, VehicleDTO updatedVehicleDTO, List<IFormFile> images)
+        public async Task<IActionResult> UpdateVehicle(int id, VehicleDTO updatedVehicleDTO)
         {
             try
             {
@@ -118,18 +105,6 @@ namespace vehicle_price_backend_api.Controllers
                 vehicle.FuelType = updatedVehicleDTO.FuelType;
                 vehicle.Transmission = updatedVehicleDTO.Transmission;
                 vehicle.Price = updatedVehicleDTO.Price;
-
-                if (images != null && images.Any())
-                {
-                    foreach (var image in images)
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            await image.CopyToAsync(memoryStream);
-                            vehicle.ImageData = memoryStream.ToArray();
-                        }
-                    }
-                }
 
                 dbContext.Vehicles.Update(vehicle);
                 await dbContext.SaveChangesAsync();

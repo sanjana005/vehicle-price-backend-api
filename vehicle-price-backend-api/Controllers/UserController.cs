@@ -36,7 +36,7 @@ namespace vehicle_price_backend_api.Controllers
                 await dbContext.Users.AddAsync(user);
                 await dbContext.SaveChangesAsync();
 
-                return Ok("User registered successfully.");
+                return Ok(new { statusMessage = "User registered successfully." });
             }
             catch(Exception ex) 
             {
@@ -50,14 +50,16 @@ namespace vehicle_price_backend_api.Controllers
             try
             {
                 var user = await dbContext.Users
-                .FirstOrDefaultAsync(u => u.Email == userLoginDTO.Email && u.Password == ConvertToEncrypt(userLoginDTO.Password));
+                .FirstOrDefaultAsync(u => u.Email == userLoginDTO.Email && u.Password == ConvertToEncrypt(userLoginDTO.Password) && u.UserType == userLoginDTO.UserType);
 
                 if (user == null)
                 {
-                    return NotFound();
+                    return Ok(new { statusMessage = "Login Failed" }); ;
                 }
 
-                return Ok("Login successful.");
+                var userType = user.UserType;
+
+                return Ok(new { statusMessage = "Login Successful", userType = userType });
             }
             catch(Exception ex)
             {
