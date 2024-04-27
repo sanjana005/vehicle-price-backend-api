@@ -140,5 +140,35 @@ namespace vehicle_price_backend_api.Controllers
             }
         }
 
+        [HttpGet("GetAdvertisement")]
+        public async Task<IActionResult> GetAdvertisement()
+        {
+            try
+            {
+                var advertisements = await dbContext.Vehicles.ToListAsync();
+
+                var advetisementDTOs = advertisements.Select(advertisement => new Advertisement
+                {
+                    Id = advertisement.Id,
+                    Brand = advertisement.Brand,
+                    Model = advertisement.Model,
+                    VehicleType = advertisement.VehicleType,
+                    Location = advertisement.Location,
+                    Mileage = advertisement.Mileage,
+                    PostedDate = advertisement.PostedDate,
+                    ManufacturedYear = advertisement.ManufacturedYear,
+                    FuelType = advertisement.FuelType,
+                    Transmission = advertisement.Transmission,
+                    Price = advertisement.Price,
+                }).ToList();
+
+                return Ok(advetisementDTOs);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

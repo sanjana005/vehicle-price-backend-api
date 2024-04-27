@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vehicle-price-backend-api", "vehicle-price-backend-api\vehicle-price-backend-api.csproj", "{9C675FD9-556C-4EDA-947C-2319FCF2B284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "vehicle-price-backend-api", "vehicle-price-backend-api\vehicle-price-backend-api.csproj", "{9C675FD9-556C-4EDA-947C-2319FCF2B284}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vehicle-price-unit-testing", "vehicle-price-unit-testing\vehicle-price-unit-testing.csproj", "{F3050451-DF45-4061-A0FF-B02A7ED5B534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9C675FD9-556C-4EDA-947C-2319FCF2B284}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C675FD9-556C-4EDA-947C-2319FCF2B284}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C675FD9-556C-4EDA-947C-2319FCF2B284}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3050451-DF45-4061-A0FF-B02A7ED5B534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3050451-DF45-4061-A0FF-B02A7ED5B534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3050451-DF45-4061-A0FF-B02A7ED5B534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3050451-DF45-4061-A0FF-B02A7ED5B534}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
