@@ -34,7 +34,7 @@ namespace vehicle_price_unit_testing
         [Test]
         public async Task UserRegistration_ValidInput_ReturnsOkResult()
         {
-            // Arrange
+
             var registrationDTO = new UserRegistrationDTO
             {
                 Name = "TestUser",
@@ -44,17 +44,17 @@ namespace vehicle_price_unit_testing
                 UserType = "Regular"
             };
 
-            // Act
+
             var result = await _controller.UserRegistration(registrationDTO);
 
-            // Assert
+
             Assert.IsInstanceOf<OkObjectResult>(result);
         }
 
         [Test]
         public async Task UserLogin_ValidCredentials_ReturnsOkResult()
         {
-            // Arrange
+
             var loginDTO = new UserLoginDTO
             {
                 Email = "admin@gmail.com",
@@ -62,12 +62,10 @@ namespace vehicle_price_unit_testing
                 UserType = "Admin"
             };
 
-            // Assuming you have seeded test data in your in-memory database for a user with these credentials
 
-            // Act
             var result = await _controller.UserLogin(loginDTO);
 
-            // Assert
+
             Assert.IsInstanceOf<OkObjectResult>(result);
         }
     }
